@@ -1,0 +1,19 @@
+body {
+  background-color: #fdfefb;
+  background-image: url(/assets/BG-square-mid.jpg);
+  background-repeat: repeat;
+  background-size: 7.15%;
+  background: linear-gradient(180deg, #fff, #fafafa);
+  overflow: hidden;
+  margin: 0;
+  min-height: 100vh;
+  min-width: 100vw;
+  background-blend-mode: multiply;
+  background-position: 50% 0, 0 0 !important;
+  background-repeat: no-repeat, repeat !important;
+}
+#container {
+  background-image: url(/assets/Fish-Bone.glb);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
