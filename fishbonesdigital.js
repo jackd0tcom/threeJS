@@ -11,12 +11,12 @@ const containerRect = container.getBoundingClientRect();
 const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera(
-  75,
+  35,
   containerRect.width / containerRect.height,
-  0.1,
+  1,
   500
 );
-camera.position.set(0, 0, 2.5);
+camera.position.set(0, 0, 6);
 
 // === Renderer ===
 const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
@@ -25,7 +25,7 @@ container.appendChild(renderer.domElement);
 
 // === Lights ===
 scene.add(new THREE.AmbientLight(0xbefcfd, 1));
-const dirLight = new THREE.DirectionalLight(0xfdfefb, 2);
+const dirLight = new THREE.DirectionalLight(0xfdfefb, 2.25);
 dirLight.position.set(10, 10, 10);
 scene.add(dirLight);
 
@@ -58,13 +58,13 @@ loader.load(
         child.material?.name.toLowerCase().includes("screen")
       ) {
         child.material = new THREE.MeshPhysicalMaterial({
-          color: 0xffffff,
+          color: 0xbefcfd,
           transparent: true,
-          opacity: 0.25,
-          roughness: 0.1,
+          opacity: 0.2,
+          roughness: 0.15,
           metalness: 0,
           transmission: 1.0,
-          ior: 1.45,
+          ior: 5,
           thickness: 0.3,
           envMapIntensity: 1.0,
         });
