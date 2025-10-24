@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="importmap">
+        {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@v0.180.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@v0.180.0/examples/jsm/"
+        }
+        }
+    </script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: transparent;
+        }
+
+        #hero-container {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="hero-container">
+        <video autoplay muted loop playsinline
+            style="position:absolute; width:1px; height:1px; opacity:0; pointer-events:none;" id="code-video"
+            src="https://your-domain.com/assets/fishbones-digital-code-2.mp4"></video>
+    </div>
+    <script src="https://your-domain.com/fishbonesdigital.js" type="module"></script>
+</body>
+
+</html>

@@ -45,7 +45,7 @@ let fish,
 let mixer;
 
 loader.load(
-  "assets/Fish-Bone-Computer-refinedAnimation.glb",
+  "https://www.jackballdev.com/threeJS/assets/Fish-Bone-Computer-refinedAnimation.glb",
   (gltf) => {
     fish = gltf.scene;
 
