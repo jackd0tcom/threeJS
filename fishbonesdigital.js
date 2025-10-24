@@ -4,12 +4,15 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
 const container = document.getElementById("hero-container");
 
+// Get container dimensions for responsive sizing
+const containerRect = container.getBoundingClientRect();
+
 // === Scene + Camera ===
 const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera(
   75,
-  window.innerWidth / window.innerHeight,
+  containerRect.width / containerRect.height,
   0.1,
   500
 );
@@ -17,7 +20,7 @@ camera.position.set(0, 0, 3);
 
 // === Renderer ===
 const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setSize(containerRect.width, containerRect.height);
 container.appendChild(renderer.domElement);
 
 // === Lights ===
@@ -125,9 +128,12 @@ loader.load(
 
 // === Resize ===
 window.addEventListener("resize", () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
+  // Get updated container dimensions
+  const newContainerRect = container.getBoundingClientRect();
+  
+  camera.aspect = newContainerRect.width / newContainerRect.height;
   camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setSize(newContainerRect.width, newContainerRect.height);
 });
 
 // === Animation ===
