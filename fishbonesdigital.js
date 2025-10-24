@@ -20,17 +20,9 @@ const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 container.appendChild(renderer.domElement);
 
-// === Controls ===
-// const controls = new OrbitControls(camera, renderer.domElement);
-// controls.enableDamping = true;
-// controls.dampingFactor = 0.05;
-// controls.enablePan = false;
-// controls.target.set(0, 0, 0);
-// controls.update();
-
 // === Lights ===
-scene.add(new THREE.AmbientLight(0xffffff, 1));
-const dirLight = new THREE.DirectionalLight(0xffffff, 2);
+scene.add(new THREE.AmbientLight(0xbefcfd, 1));
+const dirLight = new THREE.DirectionalLight(0xfdfefb, 2);
 dirLight.position.set(10, 10, 10);
 scene.add(dirLight);
 
@@ -43,48 +35,6 @@ window.addEventListener("mousemove", (event) => {
 });
 const targetPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
 const targetPoint = new THREE.Vector3();
-
-// ✅ Create the video element
-const codeVideo = document.getElementById("code-video");
-
-// Make sure the video actually starts
-codeVideo.play().catch((err) => {
-  console.warn("Autoplay blocked — user interaction may be required:", err);
-});
-
-// Create texture after the first frame is ready
-codeVideo.addEventListener("loadeddata", () => {
-  const codeTexture = new THREE.VideoTexture(codeVideo);
-  codeTexture.minFilter = THREE.LinearFilter;
-  codeTexture.magFilter = THREE.LinearFilter;
-  codeTexture.colorSpace = THREE.SRGBColorSpace; // Updated from deprecated encoding
-  codeTexture.needsUpdate = true;
-
-  const geometry = new THREE.BoxGeometry(4, 2.25, 0.25); // 16:9 ratio
-  const sides = new THREE.MeshBasicMaterial({ color: 0x000000 }); // Black sides
-  const codeMaterial = new THREE.MeshBasicMaterial({
-    map: codeTexture,
-    toneMapped: false, // Disable tone mapping for full brightness
-    side: THREE.FrontSide,
-    transparent: false,
-    opacity: 1.0,
-  });
-
-  const codeScreen = new THREE.Mesh(geometry, codeMaterial);
-  codeScreen.position.set(0, 0.2, -1);
-  codeScreen.scale.set(1.3, 1.3);
-  codeScreen.rotation.set(0, 0.075, 0);
-  // scene.add(codeScreen);
-
-  // If fish already loaded, update its screen material
-  if (fish) {
-    fish.traverse((child) => {
-      if (child.isMesh && child.name.toLowerCase().includes("screen")) {
-        child.material = codeMaterial;
-      }
-    });
-  }
-});
 
 // === Load model ===
 const loader = new GLTFLoader();
@@ -168,8 +118,6 @@ loader.load(
         `Animation loaded: ${gltf.animations[0].name}, duration: ${gltf.animations[0].duration}s`
       );
     }
-
-    controls.update();
   },
   undefined,
   (error) => console.error("Error loading model:", error)
@@ -181,13 +129,6 @@ window.addEventListener("resize", () => {
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
-
-// // === Debug sphere ===
-// const debugSphere = new THREE.Mesh(
-//   new THREE.SphereGeometry(0.05, 16, 16),
-//   new THREE.MeshBasicMaterial({ color: "red" })
-// );
-// scene.add(debugSphere);
 
 // === Animation ===
 const clock = new THREE.Clock();
@@ -209,7 +150,6 @@ function animate() {
   raycaster.setFromCamera(mouse, camera);
   raycaster.ray.intersectPlane(targetPlane, targetPoint);
   smoothedTarget.lerp(targetPoint, 0.2);
-  // debugSphere.position.copy(smoothedTarget);
 
   if (headBone) {
     const headPos = new THREE.Vector3();
@@ -248,8 +188,6 @@ function animate() {
       headBone.rotation.x = 0;
     }
   }
-
-  // controls.update();
   renderer.render(scene, camera);
 }
 
