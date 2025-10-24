@@ -16,7 +16,7 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   500
 );
-camera.position.set(0, 0, 3);
+camera.position.set(0, 0, 2.5);
 
 // === Renderer ===
 const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
@@ -130,7 +130,7 @@ loader.load(
 window.addEventListener("resize", () => {
   // Get updated container dimensions
   const newContainerRect = container.getBoundingClientRect();
-  
+
   camera.aspect = newContainerRect.width / newContainerRect.height;
   camera.updateProjectionMatrix();
   renderer.setSize(newContainerRect.width, newContainerRect.height);
